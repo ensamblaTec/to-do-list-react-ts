@@ -18,6 +18,8 @@ const server = (0, express_1.default)();
 // Define SERVER to use /api/v1 and execute rootRouter
 // From this point onover:  http://localhost:8000/api/v1/...
 server.use('/api/v1', routes_1.default);
+// Static sever
+server.use(express_1.default.static('public'));
 // TODO: Mongoose Connection
 // * Security Config
 server.use((0, helmet_1.default)());

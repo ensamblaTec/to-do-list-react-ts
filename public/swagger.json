@@ -1,0 +1,76 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"BasicResponse": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"description": "Basic JSON response for Controller"
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "to-do-list",
+		"version": "1.0.0",
+		"description": "Backend with express, typescript",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "@wedeeb"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/api/v1/hello": {
+			"get": {
+				"operationId": "GetMessage",
+				"responses": {
+					"200": {
+						"description": "Promise of BasicResponse",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Endpoint to retreive a Message \"Hello {name}\" in JSON",
+				"tags": [
+					"HelloController"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "Name of user to be greeted",
+						"in": "query",
+						"name": "name",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
