@@ -20,6 +20,9 @@ const server: Express = express();
 // From this point onover:  http://localhost:8000/api/v1/...
 server.use('/api/v1', routes);
 
+// Static sever
+server.use(express.static('public'))
+
 // TODO: Mongoose Connection
 
 // * Security Config
