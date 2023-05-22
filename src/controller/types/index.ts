@@ -1,15 +1,14 @@
-
 /**
  * Basic JSON response for Controller
  */
 export type BasicResponse = {
-    message: string
+  message: string;
 };
 
 /**
  * Error JSON response for Controller
  */
 export type ErrorResponse = {
-    error: string,
-    message: string
-}
+  error: string;
+  message: string;
+};

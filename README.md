@@ -1,12 +1,7 @@
-// Explica
-// Dependiencias instaladas
-// Script de npm creados y para que sirven
-// Variables de entorno para usarse desde .env
 # Todo APP con Express.js, React-ts, MongoDB, Typescript, Vite...
 
 ## Dependendencias:
 
-| Dependencias|
 | Nombre | Descripción |
 | ---------- | ------- |
 | dotenv | Módulo que carga un archivo .env dentro de process.env |
