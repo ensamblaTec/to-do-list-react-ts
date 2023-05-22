@@ -29,7 +29,7 @@ userRouter
     return res.status(200).send(response);
 }))
     .post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, age } = req.body;
+    const { name, email, age, status, admin } = req.body;
     if (!name || !age || !email) {
         return res.status(400).json({ message: "Failed" });
     }
@@ -58,9 +58,8 @@ userRouter
     const controller = new UsersController_1.UserController();
     // Get a param ID
     const id = (_b = req === null || req === void 0 ? void 0 : req.params) === null || _b === void 0 ? void 0 : _b.id;
-    const usr = yield controller.getUser(id);
     const response = yield controller.deleteUser(id);
-    res.status(204).send({ usr, response });
+    return res.status(200).send(response);
 }));
 // Export Hello Router
 exports.default = userRouter;

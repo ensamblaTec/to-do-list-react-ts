@@ -57,8 +57,13 @@ let UserController = class UserController {
      */
     deleteUser(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, logger_1.LogSuccess)(`The user with ID ${id} are being deleted`);
-            const response = yield (0, User_orm_1.deleteUserByID)(id);
+            (0, logger_1.LogSuccess)(`The user with ID ${id} is being deleted`);
+            let response = { message: `The user with id ${id} hasn't been deleted` };
+            yield (0, User_orm_1.deleteUserByID)(id).then(() => {
+                response = {
+                    message: `The user with id ${id} has been deleted`,
+                };
+            });
             return response;
         });
     }
@@ -69,7 +74,7 @@ let UserController = class UserController {
      */
     createUser(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, logger_1.LogSuccess)(`The user with info ${user} are being created`);
+            (0, logger_1.LogSuccess)(`The user with info ${user} is being created`);
             const response = yield (0, User_orm_1.createNewUser)(user).then((usr) => {
                 (0, logger_1.LogInfo)(`The user has been created: ${usr}`);
             });

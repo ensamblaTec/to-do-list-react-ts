@@ -1,3 +1,5 @@
+import { IAuth } from "../../domain/interfaces/IAuth.interface";
+import { IUser } from "../../domain/interfaces/IUser.interface";
 import { BasicResponse } from "../types";
 
 export interface IHelloController {
@@ -23,4 +25,13 @@ export interface ITaskController {
   updateTask(id: string): Promise<any>;
   // Create Task
   createTask(task: JSON): Promise<any>;
+}
+
+export interface IAuthController {
+  // register users
+  registerUser(user: IUser): Promise<any>
+  // login users
+  loginUser(auth: IAuth): Promise<any>
+  // logout user
+  logoutUser(): Promise<any>
 }

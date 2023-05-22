@@ -1,7 +1,6 @@
 import { Delete, Get, Put, Query, Route, Tags } from "tsoa";
 import { IUserController } from "./interfaces";
 import { LogSuccess, LogInfo } from "../utils/logger";
-
 // ORM
 import {
   getAllUsers,
@@ -45,9 +44,14 @@ export class UserController implements IUserController {
    * @returns Status and Deleted User
    */
   @Delete("/:id")
-  public async deleteUser(@Query() id: string): Promise<any> {
-    LogSuccess(`The user with ID ${id} are being deleted`);
-    const response = await deleteUserByID(id);
+  public async deleteUser(@Query() id: string): Promise<BasicResponse> {
+    LogSuccess(`The user with ID ${id} is being deleted`);
+    let response: BasicResponse = { message: `The user with id ${id} hasn't been deleted`};
+    await deleteUserByID(id).then(() => {
+      response = {
+        message: `The user with id ${id} has been deleted`,
+      }
+    });
     return response;
   }
 
@@ -58,7 +62,7 @@ export class UserController implements IUserController {
    */
   @Put("/")
   public async createUser(user: any): Promise<any> {
-    LogSuccess(`The user with info ${user} are being created`);
+    LogSuccess(`The user with info ${user} is being created`);
     const response = await createNewUser(user).then((usr) => {
       LogInfo(`The user has been created: ${usr}`);
     });
