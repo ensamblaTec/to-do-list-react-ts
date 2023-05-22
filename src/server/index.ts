@@ -52,7 +52,7 @@ server.use(express.static("public"));
 
 // TODO: Mongoose Connection
 mongoose.connect(
-  `mongodb+srv://wedeeb:${process.env.PASSWORD_MONGO}@projects.camurfu.mongodb.net/todoAPP?retryWrites=true&w=majority`
+  `mongodb+srv://${process.env.USER_MONGO}:${process.env.PASSWORD_MONGO}@${process.env.URL_MONGO}/${process.env.BD_MONGO}?retryWrites=true&w=majority`
 );
 
 // * Redirections Config
