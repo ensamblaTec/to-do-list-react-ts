@@ -39,7 +39,7 @@ server.use("/api/v1", routes_1.default);
 // Static sever
 server.use(express_1.default.static("public"));
 // TODO: Mongoose Connection
-mongoose_1.default.connect(`mongodb+srv://wedeeb:${process.env.PASSWORD_MONGO}@projects.camurfu.mongodb.net/todoAPP?retryWrites=true&w=majority`);
+mongoose_1.default.connect(`mongodb+srv://${process.env.USER_MONGO}:${process.env.PASSWORD_MONGO}@${process.env.URL_MONGO}/${process.env.BD_MONGO}?retryWrites=true&w=majority`);
 // * Redirections Config
 // http://localhost:8000/ -> http://localhost:8000/api
 server.get("/", (req, res) => {

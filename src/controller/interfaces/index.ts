@@ -8,7 +8,7 @@ export interface IHelloController {
 
 export interface IUserController {
   // Read all users from database
-  getUsers(): Promise<any>;
+  getUsers(page: number, limit: number): Promise<any>;
   getUser(id: string): Promise<any>;
   deleteUser(id: string): Promise<any>;
   createUser(id: any): Promise<any>;
@@ -17,14 +17,14 @@ export interface IUserController {
 export interface ITaskController {
   // Read all Tasks
   getTasks(): Promise<any>;
-  // Read One Task
-  getTask(): Promise<any>;
+  // Read One Task by ID
+  getTask(id: string, type: string): Promise<any>;
   // Delete Task By ID
   deleteTask(id: string): Promise<any>;
   // Update Task By ID
   updateTask(id: string): Promise<any>;
   // Create Task
-  createTask(task: JSON): Promise<any>;
+  createTask(task: any): Promise<any>;
 }
 
 export interface IAuthController {

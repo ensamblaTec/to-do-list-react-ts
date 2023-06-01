@@ -31,34 +31,36 @@ let UserController = class UserController {
      * Endpoint to retreive the users in the Collection "users" of Mongo Server
      * @returns All users
      */
-    getUsers() {
+    getUsers(page, limit) {
         return __awaiter(this, void 0, void 0, function* () {
             (0, logger_1.LogSuccess)("[/api/v1/users] Get All Users Request");
-            const response = yield (0, User_orm_1.getAllUsers)();
+            const response = yield (0, User_orm_1.getAllUsers)(page, limit);
             return response;
         });
     }
-    /**
-     * Endpoint to retreive the user in the Collection "users" of Mongo Server
-     * @param {string} id ID user
-     * @returns A user
-     */
     getUser(id) {
         return __awaiter(this, void 0, void 0, function* () {
+            /**
+             * Endpoint to retreive the user in the Collection "users" of Mongo Server
+             * @param {string} id ID user
+             * @returns A user
+             */
             (0, logger_1.LogSuccess)("[/api/v1/users/:id]: Get user Request");
             const response = yield (0, User_orm_1.getUserByID)(id);
             return response;
         });
     }
-    /**
-     * Endpoint to delete an user in the Collection 'users' of Mongo Server
-     * @param {string} id ID user
-     * @returns Status and Deleted User
-     */
     deleteUser(id) {
         return __awaiter(this, void 0, void 0, function* () {
+            /**
+             * Endpoint to delete an user in the Collection 'users' of Mongo Server
+             * @param {string} id ID user
+             * @returns Status and Deleted User
+             */
             (0, logger_1.LogSuccess)(`The user with ID ${id} is being deleted`);
-            let response = { message: `The user with id ${id} hasn't been deleted` };
+            let response = {
+                message: `The user with id ${id} hasn't been deleted`,
+            };
             yield (0, User_orm_1.deleteUserByID)(id).then(() => {
                 response = {
                     message: `The user with id ${id} has been deleted`,
@@ -67,13 +69,13 @@ let UserController = class UserController {
             return response;
         });
     }
-    /**
-     * Endpoint to create an user in the Collection 'users' of Mongo Server
-     * @param {JSON} user with user info
-     * @returns Status and user info
-     */
     createUser(user) {
         return __awaiter(this, void 0, void 0, function* () {
+            /**
+             * Endpoint to create an user in the Collection 'users' of Mongo Server
+             * @param {JSON} user with user info
+             * @returns Status and user info
+             */
             (0, logger_1.LogSuccess)(`The user with info ${user} is being created`);
             const response = yield (0, User_orm_1.createNewUser)(user).then((usr) => {
                 (0, logger_1.LogInfo)(`The user has been created: ${usr}`);
@@ -84,8 +86,10 @@ let UserController = class UserController {
 };
 __decorate([
     (0, tsoa_1.Get)("/"),
+    __param(0, (0, tsoa_1.Query)()),
+    __param(1, (0, tsoa_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUsers", null);
 __decorate([

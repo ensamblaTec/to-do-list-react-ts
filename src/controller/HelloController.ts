@@ -14,7 +14,7 @@ export class HelloController implements IHelloController {
   @Get('/')
   public async getMessage(@Query() name?: string): Promise<BasicResponse> {
     LogSuccess("[/api/v1/hello] Get Request");
-
+    
     return {
       message: `Hello ${name || "undefined"}`,
     };

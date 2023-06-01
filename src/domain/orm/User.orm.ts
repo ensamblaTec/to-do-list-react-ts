@@ -1,8 +1,15 @@
+import { UserResponse } from "../types/UsersResponse.types";
 import { userEntity } from "../entities/User.entity";
 import { LogError, LogInfo, LogSuccess } from "../../utils/logger";
 import { IUser } from "../interfaces/IUser.interface";
 import { IAuth } from "../interfaces/IAuth.interface";
 
+// environment
+import dotenv from "dotenv";
+dotenv.config();
+const secret: any = process.env.SECRETKEY;
+
+// Authentication
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 // CRUD REQUEST
@@ -10,14 +17,42 @@ import jwt from "jsonwebtoken";
 /**
  * Method to obtain all Users from Collection "users" in Mongo Server
  */
-export const getAllUsers = async (): Promise<any[] | undefined> => {
+export const getAllUsers = async (
+  page: number,
+  limit: number
+): Promise<UserResponse | undefined> => {
   try {
     // User Model
     let userModel = userEntity();
+
+    // Response
+    let response: UserResponse = {
+      users: [],
+      totalPages: 1,
+      currentPage: page,
+    };
+
+    // Query
+    await userModel
+      .find({ isDeleted: false })
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .exec()
+      .then((users: IUser[]) => {
+        response.users = users;
+      });
+
+    // Count total documents in collection 'users'
+    await userModel.countDocuments().then((total: number) => {
+      response.totalPages = Math.ceil(total / limit);
+      response.currentPage = page;
+    });
+
     // Search all users
-    return await userModel.find({});
+    return response;
   } catch (error) {
     LogError(`[ORM ERROR]: Getting All Users`);
+    return undefined;
   }
 };
 
@@ -79,33 +114,40 @@ export const loginUser = async (auth: IAuth): Promise<any | undefined> => {
   try {
     let userModel = userEntity();
 
-    // Find user by email
-    userModel.findOne({ email: auth.email }, (err: any, user: IUser) => {
-      if (err) {
-        return { message: "something has happened" };
-      }
-      if (!user) {
-        return { message: "user not found" };
-      }
+    let userFound: IUser | undefined = undefined;
+    let token = undefined;
 
-      // Use bcrypt to compare passwords
-      let validPassword = bcrypt.compareSync(auth.password, user.password);
+    await userModel
+      .findOne({ email: auth.email })
+      .then((user: IUser) => {
+        userFound = user;
+      })
+      .catch((error) => {
+        console.error(`[ERROR Authentication ORM] User not Found`);
+        throw new Error(`[ERROR Authentication ORM] User not Found: ${error}`);
+      });
 
-      if (!validPassword) {
-        return { message: "not authorized to this route", status: 401 };
+    // Use bcrypt to compare passwords
+    let validPassword = bcrypt.compareSync(auth.password, userFound!.password);
+    if (!validPassword) {
+      console.error(`[ERROR Authentication ORM] User not Found`);
+      throw new Error(`[ERROR Authentication ORM] User not Found:`);
+    }
+
+    // Create JWT
+    // Secret is in .env
+    token = jwt.sign(
+      { email: userFound!.email, admin: userFound!.admin },
+      secret,
+      {
+        expiresIn: 7200,
       }
+    );
 
-      // Create JWT
-      // Secret is in .env
-      let token = jwt.sign(
-        { email: user.email, admin: user.admin },
-        "SECRETPASSWORD",
-        {
-          expiresIn: 7200,
-        }
-      );
-      return token;
-    });
+    return {
+      user: userFound,
+      token: token,
+    };
   } catch (error) {
     LogError(`[ORM ERROR]: Login user`);
   }

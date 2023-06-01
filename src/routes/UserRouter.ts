@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 import { UserController } from "../controller/UsersController";
-import { BasicResponse } from "@/controller/types";
+import { BasicResponse } from "../controller/types";
 import { IUser } from "../domain/interfaces/IUser.interface";
-
+222
 // bcrypt to passwords
 import bcrypt from "bcrypt";
 
@@ -14,7 +14,6 @@ userRouter
   .route("/")
   .get(async (req: Request, res: Response) => {
     // Controller Instance to execute method
-    console.log(`HERE IS REQ: ${req}`);
     const controller: UserController = new UserController();
     // Obtain Response
     const response = await controller.getUsers();
@@ -32,7 +31,7 @@ userRouter
     const controller: UserController = new UserController();
     // Obtain a reponse
     const response = await controller.createUser(req.body);
-
+    // return a response
     return res.status(201).json(response);
   });
 

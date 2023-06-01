@@ -1,3 +1,7 @@
+import dotenv from 'dotenv'
+dotenv.config();
+const secret = process.env.SECRETKEY
+
 // Handle Token's
 import { Response, Request, NextFunction } from "express";
 import jwt from "jsonwebtoken";
@@ -26,7 +30,7 @@ export const verifyToken = (
   }
 
   // Check Token obtained
-  jwt.verify(token, "", (err: any, decoded: any) => {
+  jwt.verify(token, secret!, (err: any, _: any) => {
     if (err) {
       return res.status(500).json({
         message: "Fail to verify JWT Token",
@@ -41,4 +45,5 @@ export const verifyToken = (
     // Execute Next Function -> Protected Routes will be executed
     next();
   });
+  return undefined;
 };

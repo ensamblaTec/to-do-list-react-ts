@@ -7,16 +7,10 @@ exports.userEntity = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 // Schema
 const userEntity = () => {
-    // let userSchema = new mongoose.Schema({
-    //   name: String,
-    //   email: String,
-    //   age: Number,
-    //   status: Boolean,
-    //   admin: Boolean,
-    // });
     let userSchema = new mongoose_1.default.Schema({
         name: { type: String, required: true },
         email: { type: String, required: true },
+        password: { type: String, required: true },
         age: { type: Number, required: true },
         status: { type: Boolean, required: true },
         admin: { type: Boolean, required: true },
