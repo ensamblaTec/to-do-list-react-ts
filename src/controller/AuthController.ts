@@ -42,7 +42,8 @@ export class AuthController implements IAuthController {
 
     LogSuccess(`[/api/v1/auth/register] Login with user: ${auth.email}`);
     let data = await loginUser(auth);
-  
+    if(!data) 
+      return response;
     response = {
       message: `Successfully login with email: ${data.user.email}`,
       token: data.token,
