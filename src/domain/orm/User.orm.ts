@@ -37,7 +37,14 @@ export const getAllUsers = async (
       .find({ isDeleted: false })
       .limit(limit)
       .skip((page - 1) * limit)
-      .projection({name:1, email:1,age:1,admin:1,status:0,password: 0})
+      .projection({
+        name: 1,
+        email: 1,
+        age: 1,
+        admin: 1,
+        status: 0,
+        password: 0,
+      })
       .exec()
       .then((users: IUser[]) => {
         response.users = users;
@@ -128,15 +135,16 @@ export const loginUser = async (auth: IAuth): Promise<any | undefined> => {
         throw new Error(`[ERROR Authentication ORM] User not Found: ${error}`);
       });
 
-    if(!userFound) {
+    if (!userFound) {
       return undefined;
     }
+
     // Use bcrypt to compare passwords
     let validPassword = bcrypt.compareSync(auth.password, userFound!.password);
     if (!validPassword) {
       console.error(`[ERROR Authentication ORM] User not Found`);
       throw new Error(`[ERROR Authentication ORM] User not Found:`);
-    } 
+    }
 
     // Create JWT
     // Secret is in .env
@@ -158,7 +166,9 @@ export const loginUser = async (auth: IAuth): Promise<any | undefined> => {
   }
 };
 // Logout User
-export const logoutUser = async (user: IUser): Promise<any | undefined> => {};
+export const logoutUser = async (user: IUser): Promise<any | undefined> => {
+  
+};
 
 // TODO
 // GET user by email

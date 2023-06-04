@@ -6,9 +6,8 @@ export const userEntity = () => {
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    age: { type: Number, required: true },
-    status: { type: Boolean, required: true },
-    admin: { type: Boolean, required: true },
+    age: { type: Date, required: true },
+    admin: { type: Boolean, required: true, default: false },
   });
 
   return mongoose.models.users || mongoose.model<IUser>("users", userSchema);

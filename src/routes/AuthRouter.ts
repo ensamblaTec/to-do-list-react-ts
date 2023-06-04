@@ -13,9 +13,9 @@ import { verifyToken } from "../middleware/verifyToken.middleware";
 let authRouter = express.Router();
 
 authRouter.route("/register").post(async (req: Request, res: Response) => {
-  const { name, email, password, age, status, admin }: any = req.body;
+  const { name, email, password, age, }: any = req.body;
 
-  if (!name || !age || !email || !status || !admin || !password) {
+  if (!name || !age || !email || !password) {
     return res.status(400).json({ message: "Failed to create and user" });
   }
 
@@ -28,16 +28,14 @@ authRouter.route("/register").post(async (req: Request, res: Response) => {
     email,
     password: hashedPassword,
     age,
-    status,
     admin: false,
   };
 
   // Controller instance
   const controller: AuthController = new AuthController();
-
   // Obtain response
   const response: any = await controller.registerUser(newUser);
-
+  
   // Send response
   return res.status(201).json(response);
 });
