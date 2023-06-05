@@ -6,10 +6,12 @@ import { LogError, LogSuccess } from './src/utils/logger';
 dotenv.config();
 
 const port: string | number = process.env.PORT || 8000;
-const url: string = "ec2-44-210-90-241.compute-1.amazonaws.com"
+console.log(port);
+const url: string = "ec2-54-165-109-107.compute-1.amazonaws.com"
+
 // Execute SERVER
 server.listen(port, url, () => {
-  LogSuccess(`[SERVER ON]: Running at http://localhost:${port}`);
+  LogSuccess(`[SERVER ON]: Running at ec2-44-210-90-241.compute-1.amazonaws.com:${port}`);
 });
 
 // * Control SERVER ERROR
