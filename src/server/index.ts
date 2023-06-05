@@ -24,7 +24,11 @@ const server: Express = express();
 
 // * Security Config
 server.use(helmet());
-server.use(cors());
+server.use(cors({
+  origin: 'https://stupendous-scone-64a38c.netlify.app/', // Reemplaza con el dominio de tu aplicación en Netlify
+  methods: 'GET,POST,PUT,DELETE', // Métodos HTTP permitidos
+  allowedHeaders: 'Content-Type,Authorization,x-access-token' // Encabezados permitidos
+}));
 
 // * Content Type Config
 server.use(express.json());
