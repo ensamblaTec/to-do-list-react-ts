@@ -24,7 +24,6 @@ export const getAllUsers = async (
   try {
     // User Model
     let userModel = userEntity();
-
     // Response
     let response: UserResponse = {
       users: [],
@@ -34,22 +33,21 @@ export const getAllUsers = async (
 
     // Query
     await userModel
-      .find({ isDeleted: false })
+      .find()
       .limit(limit)
       .skip((page - 1) * limit)
-      .projection({
+      .select({
         name: 1,
         email: 1,
         age: 1,
         admin: 1,
-        status: 0,
-        password: 0,
       })
       .exec()
       .then((users: IUser[]) => {
+        console.log(users);
+
         response.users = users;
       });
-
     // Count total documents in collection 'users'
     await userModel.countDocuments().then((total: number) => {
       response.totalPages = Math.ceil(total / limit);
@@ -59,7 +57,7 @@ export const getAllUsers = async (
     // Search all users
     return response;
   } catch (error) {
-    LogError(`[ORM ERROR]: Getting All Users`);
+    LogError(`[ORM ERROR]: Getting All Users ${error}`);
     return undefined;
   }
 };
@@ -166,9 +164,7 @@ export const loginUser = async (auth: IAuth): Promise<any | undefined> => {
   }
 };
 // Logout User
-export const logoutUser = async (user: IUser): Promise<any | undefined> => {
-  
-};
+export const logoutUser = async (user: IUser): Promise<any | undefined> => {};
 
 // TODO
 // GET user by email

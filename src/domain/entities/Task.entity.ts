@@ -4,7 +4,7 @@ import { ITask } from "../interfaces/ITask.interface";
 export const taskEntity = () => {
   let taskSchema = new mongoose.Schema<ITask>({
     title: { type: String, required: true },
-    description: { type: String, required: true },
+    description: { type: String, required: false },
     owner: {type: String, required: true },
     tag: { type: [], required: false },
     created_at: { type: Date, required: true },

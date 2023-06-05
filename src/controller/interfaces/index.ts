@@ -1,3 +1,4 @@
+import { ITask } from "@/domain/interfaces/ITask.interface";
 import { IAuth } from "../../domain/interfaces/IAuth.interface";
 import { IUser } from "../../domain/interfaces/IUser.interface";
 import { BasicResponse } from "../types";
@@ -16,13 +17,13 @@ export interface IUserController {
 
 export interface ITaskController {
   // Read all Tasks
-  getTasks(): Promise<any>;
+  getTasks(page: number, limit: number): Promise<any>;
   // Read One Task by ID
   getTask(id: string, type: string): Promise<any>;
   // Delete Task By ID
   deleteTask(id: string): Promise<any>;
   // Update Task By ID
-  updateTask(id: string): Promise<any>;
+  updateTask(id: string, task: ITask): Promise<any>;
   // Create Task
   createTask(task: any): Promise<any>;
 }

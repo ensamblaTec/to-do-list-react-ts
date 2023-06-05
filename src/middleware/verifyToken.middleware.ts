@@ -20,7 +20,6 @@ export const verifyToken = (
 ) => {
   // Check Headers from Request 'x-access-token'
   let token: any = req?.headers["x-access-token"];
-
   // Verify if exists jwt
   if (!token) {
     return res.status(403).json({
@@ -43,6 +42,7 @@ export const verifyToken = (
     // Pass something to next request
 
     // Execute Next Function -> Protected Routes will be executed
+  console.log(token);
     next();
   });
   return undefined;

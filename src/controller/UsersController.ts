@@ -18,7 +18,7 @@ export class UserController implements IUserController {
    * @returns All users
    */
   @Get("/")
-  public async getUsers(@Query()page: number, @Query()limit: number): Promise<any> {
+  public async getUsers(@Query() page: number, @Query() limit: number): Promise<any> {
     LogSuccess("[/api/v1/users] Get All Users Request");
 
     const response = await getAllUsers(page, limit);

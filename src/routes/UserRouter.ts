@@ -15,8 +15,11 @@ userRouter
   .get(async (req: Request, res: Response) => {
     // Controller Instance to execute method
     const controller: UserController = new UserController();
+    const limit = req?.params?.limit || 10
+    const page = req?.params?.page || 1
+
     // Obtain Response
-    const response = await controller.getUsers();
+    const response = await controller.getUsers(+page, +limit);
     // Send to the client the response
     return res.status(200).send(response);
   })
