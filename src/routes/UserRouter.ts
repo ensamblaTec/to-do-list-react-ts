@@ -1,10 +1,6 @@
 import express, { Request, Response } from "express";
 import { UserController } from "../controller/UsersController";
 import { BasicResponse } from "../controller/types";
-import { IUser } from "../domain/interfaces/IUser.interface";
-222
-// bcrypt to passwords
-import bcrypt from "bcrypt";
 
 // Router from express
 let userRouter = express.Router();

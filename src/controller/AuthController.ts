@@ -1,10 +1,10 @@
-import { Delete, Get, Post, Query, Route, Tags } from "tsoa";
+import { Get, Post, Query, Route, Tags } from "tsoa";
 import { IAuthController } from "./interfaces";
-import { LogSuccess, LogError, LogInfo } from "../utils/logger";
+import { LogSuccess, LogError } from "../utils/logger";
 import { IUser } from "../domain/interfaces/IUser.interface";
 import { IAuth } from "../domain/interfaces/IAuth.interface";
 import { AuthResponse, ErrorResponse } from "./types";
-import { registerUser, logoutUser, loginUser, getUserByID } from "../domain/orm/User.orm";
+import { registerUser, loginUser, getUserByID } from "../domain/orm/User.orm";
 
 @Route("/api/v1/auth")
 @Tags("AuthController")

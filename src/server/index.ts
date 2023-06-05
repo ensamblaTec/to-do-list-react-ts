@@ -57,7 +57,7 @@ mongoose.connect(
 
 // * Redirections Config
 // http://localhost:8000/ -> http://localhost:8000/api
-server.get("/", (req: Request, res: Response) => {
+server.get("/", (_: Request, res: Response) => {
   res.redirect("/api/v1");
 });
 

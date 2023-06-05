@@ -1,5 +1,5 @@
 import { taskEntity } from "../entities/Task.entity";
-import { LogError, LogSuccess } from "../../utils/logger";
+import { LogError } from "../../utils/logger";
 import { ITask } from "../interfaces/ITask.interface";
 import { TaskResponse } from "../types/TaskResponse.types";
 

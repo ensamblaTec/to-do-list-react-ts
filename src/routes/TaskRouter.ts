@@ -1,7 +1,5 @@
 import express, { Request, Response } from "express";
 import { TaskController } from "../controller/TaskController";
-import { BasicResponse } from "../controller/types";
-import { LogInfo } from "../utils/logger";
 import { ITask } from "../domain/interfaces/ITask.interface";
 
 // Router from express

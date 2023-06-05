@@ -1,6 +1,5 @@
 import { Get, Post, Put, Delete, Route, Tags, Query } from "tsoa";
-import { BasicResponse } from "./types";
-import { LogSuccess, LogError } from "../utils/logger";
+import { LogSuccess } from "../utils/logger";
 import { ITaskController } from "./interfaces";
 import {
   createOneTask,
@@ -37,7 +36,7 @@ export class TaskController implements ITaskController {
     LogSuccess(`The task is being deleted`);
 
     let response = await deleteOneTask(id);
-    
+
     return response;
   }
 

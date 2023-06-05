@@ -77,7 +77,7 @@ authRouter.route("/logout").post(async (req: Request, res: Response) => {
 });
 
 // Route Protected by Verify Token
-authRouter.route('/me').get(verifyToken, async (req: Request, res:Response, next: NextFunction)  => {
+authRouter.route('/me').get(verifyToken, async (req: Request, res:Response, _: NextFunction)  => {
   // Obtain the ID of user to check it's data
   let id: any = req?.query?.id
   if(!id) {

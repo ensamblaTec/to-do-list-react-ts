@@ -1,6 +1,6 @@
 import { UserResponse } from "../types/UsersResponse.types";
 import { userEntity } from "../entities/User.entity";
-import { LogError, LogInfo, LogSuccess } from "../../utils/logger";
+import { LogError } from "../../utils/logger";
 import { IUser } from "../interfaces/IUser.interface";
 import { IAuth } from "../interfaces/IAuth.interface";
 
@@ -147,7 +147,7 @@ export const loginUser = async (auth: IAuth): Promise<any | undefined> => {
     // Create JWT
     // Secret is in .env
     token = jwt.sign(
-      { email: userFound!.email, admin: userFound!.admin },
+      { email: userFound.email, admin: userFound.admin },
       secret,
       {
         expiresIn: 7200,
@@ -163,9 +163,6 @@ export const loginUser = async (auth: IAuth): Promise<any | undefined> => {
     return undefined;
   }
 };
-// Logout User
-export const logoutUser = async (user: IUser): Promise<any | undefined> => {};
-
 // TODO
 // GET user by email
 // Delete user by email

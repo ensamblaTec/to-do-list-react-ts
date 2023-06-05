@@ -42,7 +42,7 @@ export const verifyToken = (
     // Pass something to next request
 
     // Execute Next Function -> Protected Routes will be executed
-  console.log(token);
+    console.log(token);
     next();
   });
   return undefined;
