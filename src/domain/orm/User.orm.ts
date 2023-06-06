@@ -120,7 +120,7 @@ export const loginUser = async (auth: IAuth): Promise<any | undefined> => {
   try {
     let userModel = userEntity();
 
-    let userFound: IUser | undefined = undefined;
+    let userFound: any = undefined;
     let token = undefined;
 
     await userModel
@@ -136,9 +136,8 @@ export const loginUser = async (auth: IAuth): Promise<any | undefined> => {
     if (!userFound) {
       return undefined;
     }
-
     // Use bcrypt to compare passwords
-    let validPassword = bcrypt.compareSync(auth.password, userFound!.password);
+    let validPassword = bcrypt.compareSync(auth.password, userFound.password);
     if (!validPassword) {
       console.error(`[ERROR Authentication ORM] User not Found`);
       throw new Error(`[ERROR Authentication ORM] User not Found:`);

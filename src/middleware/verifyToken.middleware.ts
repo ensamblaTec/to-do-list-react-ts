@@ -44,6 +44,7 @@ export const verifyToken = (
     // Execute Next Function -> Protected Routes will be executed
     console.log(token);
     next();
+    return undefined;
   });
   return undefined;
 };
